@@ -26,6 +26,9 @@ describe('Restaurant and Menu Models', () => {
         // TODO - write test
         let restaurant = await Restaurant.create( seedRestaurant[0] );
         expect(restaurant.name).toEqual(seedRestaurant[0].name);
+        expect(restaurant.location).toEqual(seedRestaurant[0].location);
+        expect(restaurant.cuisine).toEqual(seedRestaurant[0].cuisine);
+        expect(restaurant.rating).toEqual(seedRestaurant[0].rating);
     });
 
     test('can create a Menu', async () => {
@@ -55,6 +58,15 @@ describe('Restaurant and Menu Models', () => {
         expect(result.name).toEqual(seedRestaurant[2].name);
         let deletedRestaurant = await restaurant.destroy();
         result = await Restaurant.findByPk(1);
+        expect(result).toEqual(null);
+    });
+
+    test('can delete Menus', async () => {
+        let menu = await Menu.create( seedMenu[2] );
+        let result =  await Menu.findByPk(1);
+        expect(result.title).toEqual(seedMenu[2].title);
+        let deletedMenu = await menu.destroy();
+        result = await Menu.findByPk(1);
         expect(result).toEqual(null);
     });
 })
